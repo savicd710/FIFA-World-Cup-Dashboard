@@ -156,7 +156,7 @@ def map_data():
 
     """Return a list of all map data"""
     # Query all data
-    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter((CountryData.tournament == 'FIFA World Cup')).all()
+    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).all()
     session.close()
 
     country_data = []
@@ -171,6 +171,30 @@ def map_data():
         country_data.append(dict)
     
     return jsonify(country_data)
+
+@app.route("/api/map_data_count")
+def count_data():
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all map data"""
+    # Query all data
+    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter((CountryData.tournament == 'FIFA World Cup')).group_by(CountryData.team, CountryData.cup_year).all()
+    session.close()
+
+    count_data = []
+    for team, count, tournament, cup_year, lat, long in results:
+        dict = {}
+        dict["team"] = team
+        dict['count'] = count
+        dict['tournament'] = tournament
+        dict["cup_year"] = cup_year
+        dict["lat"] = lat
+        dict["long"] = long
+        count_data.append(dict)
+    
+    return jsonify(count_data)
 
 
 

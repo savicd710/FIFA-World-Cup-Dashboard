@@ -50,7 +50,7 @@ Cayman Islands,George Town,19.3,-81.383333,KY,North America
 Central African Republic,Bangui,4.366666666666666,18.583333,CF,Africa
 Chad,N'Djamena,12.1,15.033333,TD,Africa
 Chile,Santiago,-33.45,-70.666667,CL,South America
-China,Beijing,39.916666666666664,116.383333,CN,Asia
+China PR,Beijing,39.916666666666664,116.383333,CN,Asia
 Christmas Island,The Settlement,-10.416666666666666,105.716667,CX,Australia
 Cocos Islands,West Island,-12.166666666666666,96.833333,CC,Australia
 Colombia,Bogota,4.6,-74.083333,CO,South America
@@ -226,7 +226,7 @@ Uganda,Kampala,0.31666666666666665,32.550000,UG,Africa
 Ukraine,Kyiv,50.43333333333333,30.516667,UA,Europe
 United Arab Emirates,Abu Dhabi,24.466666666666665,54.366667,AE,Asia
 United Kingdom,London,51.5,-0.083333,GB,Europe
-United States,Washington D.C.,38.883333,-77.000000,US,Central America
+USA,Washington D.C.,38.883333,-77.000000,US,Central America
 Uruguay,Montevideo,-34.85,-56.166667,UY,South America
 Uzbekistan,Tashkent,41.31666666666667,69.250000,UZ,Asia
 Vanuatu,Port-Vila,-17.733333333333334,168.316667,VU,Australia

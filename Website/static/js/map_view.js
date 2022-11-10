@@ -9,7 +9,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var url = 'http://127.0.0.1:5000/api/map_data';
+var url = 'http://127.0.0.1:5000/api/map_data_count';
 
 d3.json(url).then(function(response) {
 
@@ -26,7 +26,7 @@ d3.json(url).then(function(response) {
   }
 
   var heat = L.heatLayer(heatArray, {
-    radius: 50,
+    radius: (location.count**2),
     blur: 5,
   }).addTo(map);
 
