@@ -180,7 +180,7 @@ def count_data():
 
     """Return a list of all map data"""
     # Query all data
-    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter((CountryData.tournament == 'FIFA World Cup')).group_by(CountryData.team, CountryData.cup_year).all()
+    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter((CountryData.tournament == 'FIFA World Cup')).group_by(CountryData.team, CountryData.cup_year).order_by(func.count(CountryData.team)).all()
     session.close()
 
     count_data = []
@@ -195,6 +195,30 @@ def count_data():
         count_data.append(dict)
     
     return jsonify(count_data)
+
+@app.route("/api/bardata")
+def bar_data():
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all map data"""
+    # Query all data
+    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter((CountryData.tournament == 'FIFA World Cup')).group_by(CountryData.team).order_by(func.count(CountryData.team)).all()
+    session.close()
+
+    bar_data = []
+    for team, count, tournament, cup_year, lat, long in results:
+        dict = {}
+        dict["team"] = team
+        dict['count'] = count
+        dict['tournament'] = tournament
+        dict["cup_year"] = cup_year
+        dict["lat"] = lat
+        dict["long"] = long
+        bar_data.append(dict)
+    
+    return jsonify(bar_data)
 
 
 

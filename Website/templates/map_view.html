@@ -20,7 +20,7 @@
     <!-- Set the style with style.css -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <!-- ref to Plotly -->
-    <!-- <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script> -->
+    <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
         integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
@@ -61,10 +61,9 @@
         </nav>
     </div>
     <div id="map"></div>
+    <hr>
+    <div id="bar"></div>
     <script type="text/javascript" src="../static/js/map_view.js"></script>
-    <!-- Insert pythonic for loop here -->
-    <script></script>
-    <script>var map_data = {{ data| tojson }}</script>
 </body>
 
 </html>
