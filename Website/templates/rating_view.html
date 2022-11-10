@@ -51,18 +51,30 @@
         </nav>
     </div>
     <div id = 'myChart' style="width:1200px;height:600px;"></div>
-    <script>
-    var main_data = {{data|tojson}}
-    </script>
     <div id  = 'myChart2' style="width:1200px;height:600px;"></div>
     <script>
-    var main_data 
-    
 
-   
-   
+
+    var main_data = {{data|tojson}}
+
+    var trace = [{
+    x: main_data.map(item => item.tournament),
+    y: main_data.map(item => item.better_fifa_win),
+    type: 'bar'
+    }];
+
+    Plotly.newPlot("MyChart", trace);
+
+    var  trace2 = [{
+        x: main_data.map(item => item.tournament),
+        y: main_data.map(item => item.better_ea_team_win),
+        type: 'bar'
+        }];
+
+    Plotly.newPlot("MyChart2", trace2);
+
     </script>
 
-<script src="../static/js/rating.js"></script> 
+<!--<script src="../static/js/rating.js"></script> -->
 </body>
 </html>
