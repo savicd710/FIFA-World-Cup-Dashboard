@@ -1,4 +1,4 @@
-var main_data = {{data|tojson}}
+
 
 
     
