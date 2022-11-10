@@ -45,12 +45,12 @@ def main_view():
     session = Session(engine)
 
     """Return a list of all country data"""
-    # Query all countries
+    # Query all data
     results = session.query(CountryData.date, CountryData.team, CountryData.goals_scored, CountryData.tournament, CountryData.result, CountryData.goal_diff, CountryData.cup_year).all()
     session.close()
 
     country_data = []
-    for date, team, goals_scored, tournament, result, goal_diff, cup_year  in results:
+    for date, team, goals_scored, tournament, result, goal_diff, cup_year in results:
         dict = {}
         dict["date"] = date
         dict["team"] = team
@@ -61,91 +61,62 @@ def main_view():
         dict["cup_year"] = cup_year
         country_data.append(dict)
 
-    # Convert list of tuples into normal list
-
-    return render_template('main_view.html', data = country_data)
+    return render_template('main_view.html', data=country_data)
 
 @app.route("/team_view")
 def team_view():
-    """Return the team_view"""
-    return render_template('team_view.html')
+    
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all team data"""
+    # Query all data
+    country_results = session.query(CountryData.date, CountryData.team, CountryData.fifa_rank, CountryData.tournament, CountryData.cup_year).all()
+    squad_results = session.query(SquadData.country, SquadData.year, SquadData.age, SquadData.caps).all()
+    session.close()
+
+    country_data = []
+    for date, team, fifa_rank, tournament, cup_year in country_results:
+        dict = {}
+        dict["date"] = date
+        dict["team"] = team
+        dict["fifa_rank"] = fifa_rank
+        dict["tournament"] = tournament
+        dict["cup_year"] = cup_year
+        country_data.append(dict)
+
+    squad_data = []
+    for country, year, age, caps in squad_results:
+        dict = {}
+        dict["country"] = country
+        dict["year"] = year
+        dict["age"] = age
+        dict["caps"] = caps
+        squad_data.append(dict)
+
+    return render_template('team_view.html', country_data=country_data, squad_data=squad_data)
 
 @app.route("/rating_view")
 def rating_view():
-    """Return the rating_view"""
-    return render_template('rating_view.html')
-
-@app.route("/api/v1.0/country_data")
-def country_data():
 
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of all country data"""
-    # Query all countries
-    results = session.query(CountryData.team).all()
-
+    """Return a list of all rating data"""
+    # Query all data
+    results = session.query(MatchData.date, MatchData.better_ea_team_win, MatchData.better_fifa_team_win, MatchData.tournament).all()
     session.close()
 
-    # Convert list of tuples into normal list
-    all_countries = list(np.ravel(results))
+    match_data = []
+    for date, better_ea_team_win, better_fifa_team_win, tournament in results:
+        dict = {}
+        dict["date"] = date
+        dict["better_ea_team_win"] = better_ea_team_win
+        dict["better_fifa_team_win"] = better_fifa_team_win
+        dict["tournament"] = tournament
+        match_data.append(dict)
 
-    return jsonify(all_countries)
-
-@app.route("/api/v1.0/match_data")
-def match_data():
-
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    """Return a list of all match data"""
-    # Query all countries
-    results = session.query(MatchData.date, MatchData.home_team, MatchData.home_team_fifa_rank).all()
-
-    session.close()
-    
-    # Create a dictionary from the row data and append to a list of all_ranks
-    all_ranks = []
-    for date, home_team, home_team_fifa_rank in results:
-        rank_dict = {}
-        rank_dict["date"] = date
-        rank_dict["home_team"] = home_team
-        rank_dict["home_team_fifa_rank"] = home_team_fifa_rank
-        all_ranks.append(rank_dict)
-
-    return jsonify(all_ranks)
-
-@app.route("/api/v1.0/squad_data")
-def squad_data():
-
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    """Return a list of all squad data"""
-    # Query all countries
-    results = session.query(SquadData.year, SquadData.country, SquadData.age).all()
-
-    session.close()
-
-    all_squad = []
-    for year, country, age in results:
-        squad_dict = {}
-        squad_dict["year"] = year
-        squad_dict["country"] = country
-        squad_dict["age"] = age
-        all_squad.append(squad_dict)
-
-    return jsonify(all_squad)
-
-
-
-
-
-
-
-
-
-
+    return render_template('rating_view.html', data=match_data)
 
 
 
