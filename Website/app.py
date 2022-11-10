@@ -129,16 +129,18 @@ def map_view():
 
     """Return a list of all map data"""
     # Query all data
-    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year).all()
+    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).all()
     session.close()
 
     country_data = []
-    for date, team, tournament, cup_year in results:
+    for date, team, tournament, cup_year, lat, long in results:
         dict = {}
         dict["date"] = date
         dict["team"] = team
         dict["tournament"] = tournament
         dict["cup_year"] = cup_year
+        dict["lat"] = lat
+        dict["long"] = long
         country_data.append(dict)
 
     return render_template('map_view.html', data=country_data)
