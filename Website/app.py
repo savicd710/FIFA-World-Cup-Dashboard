@@ -40,8 +40,30 @@ def welcome():
 
 @app.route("/main_view")
 def main_view():
-    """Return the main_view"""
-    return render_template('main_view.html')
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all country data"""
+    # Query all countries
+    results = session.query(CountryData.date, CountryData.team, CountryData.goals_scored, CountryData.tournament, CountryData.result, CountryData.goal_diff, CountryData.cup_year).all()
+    session.close()
+
+    country_data = []
+    for date, team, goals_scored, tournament, result, goal_diff, cup_year  in results:
+        dict = {}
+        dict["date"] = date
+        dict["team"] = team
+        dict["goals_scored"] = goals_scored
+        dict["tournament"] = tournament
+        dict["result"] = result
+        dict["goal_diff"] = goal_diff
+        dict["cup_year"] = cup_year
+        country_data.append(dict)
+
+    # Convert list of tuples into normal list
+
+    return render_template('main_view.html', data = country_data)
 
 @app.route("/team_view")
 def team_view():
