@@ -1,5 +1,3 @@
-var data = main_data
-
 const ctx = document.getElementById("Tournament").getContext("2d)");
 
 let delayed;
