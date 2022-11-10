@@ -1,7 +1,6 @@
 
 
 
-    
 let trace = [{
     x: main_data.map(item => item.tournament),
     y: main_data.map(item => item.better_fifa_win),
