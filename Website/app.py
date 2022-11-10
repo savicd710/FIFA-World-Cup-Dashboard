@@ -107,22 +107,22 @@ def rating_view():
 
     """Return a list of all rating data"""
     # Query all data
-    results = session.query(MatchData.date,MatchData.home_team_fifa_rank, MatchData.away_team_fifa_rank, MatchData.better_ea_team_win, MatchData.better_fifa_team_win, MatchData.tournament, MatchData.winner).all()
+    results = session.query(MatchData.date,MatchData.home_team_fifa_rank, MatchData.away_team_fifa_rank, MatchData.tournament, MatchData.winner).all()
     session.close()
 
     match_data = []
     for date, better_ea_team_win, better_fifa_team_win, tournament in results:
         dict = {}
         dict["date"] = date
+        dict["home_team"] = home_team
+        dict["away_team"] = away_team
         dict["home_team_rank"] = home_team_rank
         dict["away_team_rank"] =away_team_rank
-        dict["better_ea_team_win"] = better_ea_team_win
-        dict["better_fifa_team_win"] = better_fifa_team_win
         dict["tournament"] = tournament
         dict["winner"] = winner
         match_data.append(dict)
 
-    return render_template('rating_view.html', data=match_data, date= date, better_ea_team_win = better_ea_team_win, better_fifa_team_win = better_fifa_team_win, tournament = tournament, winner = winner)
+    return render_template('rating_view.html', data=match_data, date= date,home_team = home_team, away_team = away_team, home_team_rank = home_team_rank, away_team_rank = away_team_rank, tournament = tournament, winner = winner)
 
 @app.route("/map_view")
 def map_view():
