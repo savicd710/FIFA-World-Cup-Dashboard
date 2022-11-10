@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -71,19 +72,8 @@ def team_view():
 
     """Return a list of all team data"""
     # Query all data
-    country_results = session.query(CountryData.date, CountryData.team, CountryData.fifa_rank, CountryData.tournament, CountryData.cup_year).all()
     squad_results = session.query(SquadData.country, SquadData.year, SquadData.age, SquadData.caps).all()
     session.close()
-
-    country_data = []
-    for date, team, fifa_rank, tournament, cup_year in country_results:
-        dict = {}
-        dict["date"] = date
-        dict["team"] = team
-        dict["fifa_rank"] = fifa_rank
-        dict["tournament"] = tournament
-        dict["cup_year"] = cup_year
-        country_data.append(dict)
 
     squad_data = []
     for country, year, age, caps in squad_results:
@@ -93,8 +83,21 @@ def team_view():
         dict["age"] = age
         dict["caps"] = caps
         squad_data.append(dict)
+    
+    squad_data_pd = pd.DataFrame(squad_data)
+    squad_data_pd.caps = squad_data_pd.caps.str.extract('(\d+)').dropna().astype('int64')
+    squad_data_pd.dropna(inplace=True)
 
-    return render_template('team_view.html', country_data=country_data, squad_data=squad_data)
+    heat_data = squad_data_pd.groupby(['country', 'year']).mean()
+    heat_data.drop(axis = 1, columns = ['age'], inplace=True)
+    heat_data = heat_data.reset_index(level=0)
+    heat_data = heat_data.reset_index(level=0)
+
+    caps = list(heat_data.caps)
+    teams = list(heat_data.country)
+    years = list(heat_data.year)
+
+    return render_template('team_view.html', squad_data=squad_data, caps = caps, teams = teams, years = years)
 
 @app.route("/rating_view")
 def rating_view():
@@ -118,6 +121,27 @@ def rating_view():
 
     return render_template('rating_view.html', data=match_data)
 
+@app.route("/map_view")
+def map_view():
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all map data"""
+    # Query all data
+    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year).all()
+    session.close()
+
+    country_data = []
+    for date, team, tournament, cup_year in results:
+        dict = {}
+        dict["date"] = date
+        dict["team"] = team
+        dict["tournament"] = tournament
+        dict["cup_year"] = cup_year
+        country_data.append(dict)
+
+    return render_template('map_view.html', data=country_data)
 
 
 

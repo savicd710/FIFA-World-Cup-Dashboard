@@ -19,6 +19,9 @@
         crossorigin="anonymous"></script>
     <!-- Set the style with style.css -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+     <!-- ref to Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+
 </head>
 
 <body>
@@ -48,17 +51,16 @@
         </nav>
     </div>
     <div id = 'myChart' style="width:1200px;height:600px;"></div>
-<script>
+    <script>
     var main_data = {{data|tojson}}
-   
-
-
-    <div id2 = 'myChart2' style="width:1200px;height:600px;"></div>
+    </script>
+    <div id  = 'myChart2' style="width:1200px;height:600px;"></div>
+    <script>
     var main_data = {{data|tojson}}
 
    
    
-</script>
+    </script>
 
 <script src="../static/js/rating.js"></script> 
 </body>

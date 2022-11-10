@@ -1,4 +1,4 @@
-var main_data = {{data|tojson}}
+
 
 
     
@@ -15,5 +15,7 @@ let trace2 = [{
         y: main_data.map(item => item.better_ea_team_win),
         type: 'bar'
 }];
+
+
     
 Plotly.newPlot('myChart2', trace2)
