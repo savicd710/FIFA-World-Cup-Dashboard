@@ -10,8 +10,8 @@ Fifa World Cup 1993-2022
 Kaggle
 https://www.kaggle.com/datasets/brenda89/fifa-world-cup-2022?resource=download 
 
-Fifa World Cup Squads 1994-2018
-Wikipedia (Scraped)
+Fifa World Cup Squads 1994-2018  
+Wikipedia (Scraped)  
 https://en.wikipedia.org/wiki/2018_FIFA_World_Cup_squads 
 https://en.wikipedia.org/wiki/2014_FIFA_World_Cup_squads 
 https://en.wikipedia.org/wiki/2010_FIFA_World_Cup_squads 
