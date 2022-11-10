@@ -65,3 +65,8 @@
   padding: inherit;
   background-color: lightgray;
 }
+
+/* CSS Styling for Map */
+#map { 
+  height: 850px;
+}

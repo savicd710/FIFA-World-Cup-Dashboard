@@ -132,7 +132,7 @@ def map_view():
 
     """Return a list of all map data"""
     # Query all data
-    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).all()
+    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter(CountryData.tournament == 'FIFA World Cup').all()
     session.close()
 
     country_data = []
@@ -147,6 +147,33 @@ def map_view():
         country_data.append(dict)
 
     return render_template('map_view.html', data=country_data)
+
+@app.route("/api/map_data")
+def map_data():
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all map data"""
+    # Query all data
+    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter((CountryData.tournament == 'FIFA World Cup')).all()
+    session.close()
+
+    country_data = []
+    for date, team, tournament, cup_year, lat, long in results:
+        dict = {}
+        dict["date"] = date
+        dict["team"] = team
+        dict["tournament"] = tournament
+        dict["cup_year"] = cup_year
+        dict["lat"] = lat
+        dict["long"] = long
+        country_data.append(dict)
+    
+    return jsonify(country_data)
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Match Rating Analysis</title>
+    <title>Map View</title>
     <!-- Bootstrap CSS and other dependencies -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -20,7 +20,17 @@
     <!-- Set the style with style.css -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <!-- ref to Plotly -->
-    <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+    <!-- <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script> -->
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <!-- Leaflet JavaScript code -->
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    <!-- Leaflet heatmap plugin-->
+    <script type="text/javascript" src="../static/js/leaflet-heat.js"></script>
+    <!-- D3 library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
@@ -50,8 +60,11 @@
             </div>
         </nav>
     </div>
-    <div id = 'myMap' style="width:1200px;height:600px;"></div>
-    <script>var map_data = {{data|tojson}}</script>
-    <script src="../static/js/map_view.js"></script>
+    <div id="map"></div>
+    <script type="text/javascript" src="../static/js/map_view.js"></script>
+    <!-- Insert pythonic for loop here -->
+    <script></script>
+    <script>var map_data = {{ data| tojson }}</script>
 </body>
+
 </html>
