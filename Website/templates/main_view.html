@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <!-- ref to Plotly -->
     <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -50,25 +50,16 @@
             </div>
         </nav>
     </div>
-    <div id = 'myChart' style="width:1200px;height:600px;"></div>
+   
+    <div>
+        <canvas id="myChart" width= "400" height="400"></canvas>
+      </div>
     <script>
         var main_data = {{data|tojson}}
-        var tournament = main_data.map(item => item.tournament)
-        
-        var trace = [{
-            x: main_data.map(item => item.cup_year),
-            y: main_data.map(item => item.goals_scored),
-            type: 'line',
-            transforms: [{
-                type: 'groupby',
-                group: main_data.map(item => item.team),
-            }]
-        }]
 
-        Plotly.newPlot('myChart', trace)
 
 
     </script>
-    <!-- <script src="../static/js/main.js"></script> -->
+    <script src="../static/js/main.js"></script> 
 </body>
 </html>

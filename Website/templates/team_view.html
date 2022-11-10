@@ -19,6 +19,14 @@
         crossorigin="anonymous"></script>
     <!-- Set the style with style.css -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <!-- link anychart -->
+    <!-- <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-heatmap.min.js"></script> -->
+    
+    <!-- link plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+
+
 </head>
 
 <body>
@@ -47,5 +55,20 @@
             </div>
         </nav>
     </div>
+
+    <div id="myDiv" style="width:1200px;height:1200px;"></div>
+    
+    <script>
+        var data = [{
+            z: {{caps|tojson}},
+            x: {{years|tojson}},
+            y: {{teams|tojson}},
+            type: 'heatmap',
+            hoverongaps: false
+            }];
+  
+    Plotly.newPlot('myDiv', data);
+    </script>
+    <!-- <script src="../static/js/team.js"></script> -->
 </body>
 </html>
