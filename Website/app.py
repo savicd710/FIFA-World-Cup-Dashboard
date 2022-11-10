@@ -97,8 +97,6 @@ def team_view():
     teams = list(heat_data.country)
     years = list(heat_data.year)
 
-
-
     return render_template('team_view.html', squad_data=squad_data, caps = caps, teams = teams, years = years)
 
 @app.route("/rating_view")
@@ -123,6 +121,27 @@ def rating_view():
 
     return render_template('rating_view.html', data=match_data)
 
+@app.route("/map_view")
+def map_view():
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all map data"""
+    # Query all data
+    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year).all()
+    session.close()
+
+    country_data = []
+    for date, team, tournament, cup_year in results:
+        dict = {}
+        dict["date"] = date
+        dict["team"] = team
+        dict["tournament"] = tournament
+        dict["cup_year"] = cup_year
+        country_data.append(dict)
+
+    return render_template('map_view.html', data=country_data)
 
 
 
