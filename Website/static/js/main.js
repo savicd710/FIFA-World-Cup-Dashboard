@@ -3,9 +3,10 @@ const ctx =document.getElementById('myChart');
 
 let delayed;
 
-let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-gradient.addColorStop(0, "rgba(58,123,213,1");
-gradient.addColorStop(1, "rgba(0,210,255, 0.3)");
+let gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+gradient.addColorStop(0, Utils.CHART_COLORS.blue);
+gradient.addColorStop(0.5, Utils.CHART_COLORS.yellow);
+gradient.addColorStop(1, Utils.CHART_COLORS.red);
 
 const labels = main_data.map(item =>item.date)
 
