@@ -80,3 +80,45 @@ d3.json(url).then(function(response) {
 
   Plotly.newPlot('bar', data, layout, config);
 });
+
+// Call updatePlotly() when a change takes place to the DOM
+d3.selectAll("#selDataset").on("change", updatePlotly);
+
+// This function is called when a dropdown menu item is selected
+function updatePlotly() {
+  // Use D3 to select the dropdown menu
+  let dropdownMenu = d3.select("#selDataset");
+  // Assign the value of the dropdown menu option to a variable
+  let continent = dropdownMenu.property("value");
+  
+  var url = 'http://127.0.0.1:5000/api/bardata';
+
+  d3.json(url).then(function(response) {
+
+  console.log(response);
+
+  var x = [];
+  var y = [];
+
+  for (var i = 0; i < response.length; i++) {
+    var location = response[i];
+
+    if (location.team_continent == continent) {
+      x.push(location.team);
+      y.push(location.count);
+    }
+  }
+  if(continent == 'All') {
+  var x = [];
+  var y = [];
+
+  for (var i = 0; i < response.length; i++) {
+    var location = response[i];
+      x.push(location.team);
+      y.push(location.count);
+    }
+  }
+
+  Plotly.restyle("bar", "x", [x]);
+  Plotly.restyle("bar", "y", [y]);
+})};
