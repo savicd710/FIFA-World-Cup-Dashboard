@@ -56,10 +56,12 @@
         </nav>
     </div>
 
-    <div id="myDiv" style="width:1200px;height:1200px;"></div>
+    <div id="capsChart" style="width:1200px;height:1200px;"></div>
+    <div id="ageChart" style="width:1200px;height:1200px;"></div>
+
     
     <script>
-        var data = [{
+        var data1 = [{
             z: {{caps|tojson}},
             x: {{years|tojson}},
             y: {{teams|tojson}},
@@ -67,7 +69,18 @@
             hoverongaps: false
             }];
   
-    Plotly.newPlot('myDiv', data);
+    Plotly.newPlot('capsChart', data1);
+
+    var data2 = [{
+            z: {{age|tojson}},
+            x: {{years|tojson}},
+            y: {{teams|tojson}},
+            type: 'heatmap',
+            hoverongaps: false,
+            colorscale: 'Viridis'
+            }];
+  
+    Plotly.newPlot('ageChart', data2);
     </script>
     <!-- <script src="../static/js/team.js"></script> -->
 </body>

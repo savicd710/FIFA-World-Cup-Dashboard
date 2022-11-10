@@ -89,15 +89,15 @@ def team_view():
     squad_data_pd.dropna(inplace=True)
 
     heat_data = squad_data_pd.groupby(['country', 'year']).mean()
-    heat_data.drop(axis = 1, columns = ['age'], inplace=True)
     heat_data = heat_data.reset_index(level=0)
     heat_data = heat_data.reset_index(level=0)
 
     caps = list(heat_data.caps)
     teams = list(heat_data.country)
     years = list(heat_data.year)
+    age = list(heat_data.age)
 
-    return render_template('team_view.html', squad_data=squad_data, caps = caps, teams = teams, years = years)
+    return render_template('team_view.html', squad_data=squad_data, caps = caps, teams = teams, years = years, age = age)
 
 @app.route("/rating_view")
 def rating_view():
