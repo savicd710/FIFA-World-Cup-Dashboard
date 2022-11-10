@@ -119,7 +119,7 @@ def rating_view():
         dict["tournament"] = tournament
         match_data.append(dict)
 
-    return render_template('rating_view.html', data=match_data)
+    return render_template('rating_view.html', data=match_data, date= date, better_ea_team_win = better_ea_team_win, better_fifa_team_win = better_fifa_team_win, tournament = tournament)
 
 @app.route("/map_view")
 def map_view():
