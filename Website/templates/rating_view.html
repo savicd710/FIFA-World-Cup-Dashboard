@@ -58,27 +58,33 @@
 
     
 
-    var trace1 = [{
-    x: {{tournament|tojson}},
-    y: {{home_team_rank|tojson}},
-    name: 'Home',
-    type: 'bar'
-    }];
+    var data = [
+        {
 
-    
+            type: 'bar',
+             x: {{tournament|tojson}} ,
+             y: {{home_team_rank|tojson}} ,
+             base: [1,10,100],
+             marker: {
+                color:'green'
+             },
+             name: 'Home'
+         },
+        {
+            type: 'bar',
+            x: {{tournament|tojson}},
+            y: {{away_team_rank|tojson}},
+            base: 0,
+            marker: {
+                color: 'red'
+            }
+            name: 'Away',
+        
+        }]
 
-    var  trace2 = [{
-        x: {{tournament|tojson}},
-        y: {{away_team_rank|tojson}},
-        name: 'Away',
-        type: 'bar'
-        }];
+ 
 
-    var data = [trace1, trace2];
-
-    var layout ={barmode: 'stack'};
-
-    Plotly.newPlot("MyChart2", data, layout);
+     Plotly.newPlot("MyChart", data);
 
     </script>
 
