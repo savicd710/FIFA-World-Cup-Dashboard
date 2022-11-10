@@ -39,6 +39,7 @@ def welcome():
     """Return the welcome page"""
     return render_template('welcome.html')
 
+
 @app.route("/main_view")
 def main_view():
 
@@ -47,7 +48,8 @@ def main_view():
 
     """Return a list of all country data"""
     # Query all data
-    results = session.query(CountryData.date, CountryData.team, CountryData.goals_scored, CountryData.tournament, CountryData.result, CountryData.goal_diff, CountryData.cup_year).all()
+    results = session.query(CountryData.date, CountryData.team, CountryData.goals_scored,
+                            CountryData.tournament, CountryData.result, CountryData.goal_diff, CountryData.cup_year).all()
     session.close()
 
     country_data = []
@@ -64,15 +66,17 @@ def main_view():
 
     return render_template('main_view.html', data=country_data)
 
+
 @app.route("/team_view")
 def team_view():
-    
+
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
     """Return a list of all team data"""
     # Query all data
-    squad_results = session.query(SquadData.country, SquadData.year, SquadData.age, SquadData.caps).all()
+    squad_results = session.query(
+        SquadData.country, SquadData.year, SquadData.age, SquadData.caps).all()
     session.close()
 
     squad_data = []
@@ -83,9 +87,10 @@ def team_view():
         dict["age"] = age
         dict["caps"] = caps
         squad_data.append(dict)
-    
+
     squad_data_pd = pd.DataFrame(squad_data)
-    squad_data_pd.caps = squad_data_pd.caps.str.extract('(\d+)').dropna().astype('int64')
+    squad_data_pd.caps = squad_data_pd.caps.str.extract(
+        '(\d+)').dropna().astype('int64')
     squad_data_pd.dropna(inplace=True)
 
     heat_data = squad_data_pd.groupby(['country', 'year']).mean()
@@ -97,7 +102,8 @@ def team_view():
     years = list(heat_data.year)
     age = list(heat_data.age)
 
-    return render_template('team_view.html', squad_data=squad_data, caps = caps, teams = teams, years = years, age = age)
+    return render_template('team_view.html', squad_data=squad_data, caps=caps, teams=teams, years=years, age=age)
+
 
 @app.route("/rating_view")
 def rating_view():
@@ -107,7 +113,8 @@ def rating_view():
 
     """Return a list of all rating data"""
     # Query all data
-    results = session.query(MatchData.date,MatchData.home_team_fifa_rank, MatchData.away_team_fifa_rank, MatchData.tournament, MatchData.winner).all()
+    results = session.query(MatchData.date, MatchData.home_team_fifa_rank,
+                            MatchData.away_team_fifa_rank, MatchData.tournament, MatchData.winner).all()
     session.close()
 
     match_data = []
@@ -117,36 +124,19 @@ def rating_view():
         dict["home_team"] = home_team
         dict["away_team"] = away_team
         dict["home_team_rank"] = home_team_rank
-        dict["away_team_rank"] =away_team_rank
+        dict["away_team_rank"] = away_team_rank
         dict["tournament"] = tournament
         dict["winner"] = winner
         match_data.append(dict)
 
-    return render_template('rating_view.html', data=match_data, date= date,home_team = home_team, away_team = away_team, home_team_rank = home_team_rank, away_team_rank = away_team_rank, tournament = tournament, winner = winner)
+    return render_template('rating_view.html', data=match_data, date=date, home_team=home_team, away_team=away_team, home_team_rank=home_team_rank, away_team_rank=away_team_rank, tournament=tournament, winner=winner)
+
 
 @app.route("/map_view")
 def map_view():
+    """Return the map page"""
+    return render_template('map_view.html')
 
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    """Return a list of all map data"""
-    # Query all data
-    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter(CountryData.tournament == 'FIFA World Cup').all()
-    session.close()
-
-    country_data = []
-    for date, team, tournament, cup_year, lat, long in results:
-        dict = {}
-        dict["date"] = date
-        dict["team"] = team
-        dict["tournament"] = tournament
-        dict["cup_year"] = cup_year
-        dict["lat"] = lat
-        dict["long"] = long
-        country_data.append(dict)
-
-    return render_template('map_view.html', data=country_data)
 
 @app.route("/api/map_data")
 def map_data():
@@ -156,7 +146,8 @@ def map_data():
 
     """Return a list of all map data"""
     # Query all data
-    results = session.query(CountryData.date, CountryData.team, CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).all()
+    results = session.query(CountryData.date, CountryData.team, CountryData.tournament,
+                            CountryData.cup_year, CountryData.lat, CountryData.long).all()
     session.close()
 
     country_data = []
@@ -169,8 +160,9 @@ def map_data():
         dict["lat"] = lat
         dict["long"] = long
         country_data.append(dict)
-    
+
     return jsonify(country_data)
+
 
 @app.route("/api/map_data_count")
 def count_data():
@@ -180,7 +172,8 @@ def count_data():
 
     """Return a list of all map data"""
     # Query all data
-    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter((CountryData.tournament == 'FIFA World Cup')).group_by(CountryData.team, CountryData.cup_year).order_by(func.count(CountryData.team)).all()
+    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.cup_year, CountryData.lat, CountryData.long).filter(
+        (CountryData.tournament == 'FIFA World Cup')).group_by(CountryData.team, CountryData.cup_year).order_by(func.count(CountryData.team)).all()
     session.close()
 
     count_data = []
@@ -193,8 +186,9 @@ def count_data():
         dict["lat"] = lat
         dict["long"] = long
         count_data.append(dict)
-    
+
     return jsonify(count_data)
+
 
 @app.route("/api/bardata")
 def bar_data():
@@ -204,7 +198,8 @@ def bar_data():
 
     """Return a list of all map data"""
     # Query all data
-    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.team_continent).filter(CountryData.tournament == 'FIFA World Cup').group_by(CountryData.team).order_by(func.count(CountryData.team)).all()
+    results = session.query(CountryData.team, func.count(CountryData.team), CountryData.tournament, CountryData.team_continent).filter(
+        CountryData.tournament == 'FIFA World Cup').group_by(CountryData.team).order_by(func.count(CountryData.team)).all()
     session.close()
 
     bar_data = []
@@ -215,9 +210,8 @@ def bar_data():
         dict['tournament'] = tournament
         dict["team_continent"] = team_continent
         bar_data.append(dict)
-    
-    return jsonify(bar_data)
 
+    return jsonify(bar_data)
 
 
 if __name__ == '__main__':
