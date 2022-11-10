@@ -1,13 +1,67 @@
 
-body {
+/* body {
    display: flex;
    align-items: center;
    justify-content: center;
    height: 100vh;
-}
+} */
 
-.char{
+/* .char {
   position: relative;
   width: 50vw;
   height: 50vh;
+} */
+
+/* CSS Styling for Welcome Page */
+.jumbotron {
+  background-image: url('../images/welcome_page_field.jpg');
+  opacity: 0.85;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 519px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#welcome-button {
+  background-color: rgb(10, 95, 170);
+  border-color: darkgreen;
+}
+
+#welcome {
+  background-image: url('../images/welcome_page_background.jpg');
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* CSS Styling for Nav Bar */
+.navbar {
+  background-image: url('../images/navbar_background.jpg');
+  background-color: green;
+}
+
+.navbar-brand {
+  border-radius: 10px;
+  padding: inherit;
+  background-color: lightgray;
+}
+
+.nav-item {
+  border-radius: 10px;
+  padding: inherit;
+  background-color: lightgray;
+}
+
+.navbar-toggler {
+  border-radius: 10px;
+  padding: inherit;
+  background-color: lightgray;
 }

@@ -33,11 +33,25 @@ app = Flask(__name__)
 #################################################
 # Flask Routes
 #################################################
-
 @app.route("/")
-def home():
-    print('Welcome')
+def welcome():
+    """Return the welcome page"""
+    return render_template('welcome.html')
+
+@app.route("/main_view")
+def main_view():
+    """Return the main_view"""
     return render_template('main_view.html')
+
+@app.route("/team_view")
+def team_view():
+    """Return the team_view"""
+    return render_template('team_view.html')
+
+@app.route("/rating_view")
+def rating_view():
+    """Return the rating_view"""
+    return render_template('rating_view.html')
 
 @app.route("/api/v1.0/country_data")
 def country_data():
