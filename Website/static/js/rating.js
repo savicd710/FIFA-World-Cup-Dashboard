@@ -1,21 +1,24 @@
 
 
 
-let trace1 = [{
+var trace = [{
     x: main_data.map(item => item.tournament),
     y: main_data.map(item => item.better_fifa_win),
     type: 'bar'
 }];
 
+Plotly.newPlot("MyChart", trace);
 
 
-let  trace2 = [{
+var  trace2 = [{
         x: main_data.map(item => item.tournament),
         y: main_data.map(item => item.better_ea_team_win),
         type: 'bar'
 }];
 
-let dat = [trace1, trace2]
+Plotly.newPlot("MyChart2", trace);
+
+
 
 
 
