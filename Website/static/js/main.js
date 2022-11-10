@@ -1,4 +1,5 @@
-const ctx = document.getElementById("Tournament").getContext("2d)");
+
+const ctx =document.getElementById('myChart');
 
 let delayed;
 
@@ -6,16 +7,13 @@ let gradient = ctx.createLinearGradient(0, 0, 0, 400);
 gradient.addColorStop(0, "rgba(58,123,213,1");
 gradient.addColorStop(1, "rgba(0,210,255, 0.3)");
 
-const labels =[
-    '2001',
-    '2002',
-];
+const labels = main_data.map(item =>item.date)
 
 const data = {
     labels,
     datasets:[
         {
-        data:[500],
+        data:['Afghanistan','Asia','Albania', 'Europe', 'Algeria', 'Africa', 'American Samoa', 'Oceania', 'Andorra','Angola', 'Anguilla', 'North America', 'South America'],
         label: "Goals Scored",
         fill: true,
         backgroundColor: gradient,
@@ -48,4 +46,4 @@ const config = {
     },
 };
 
-const Tournament = new Chart(ctx, config);
+const myChart = new Chart(ctx, config);
