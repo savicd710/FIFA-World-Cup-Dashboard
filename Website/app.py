@@ -118,7 +118,7 @@ def rating_view():
     session.close()
 
     match_data = []
-    for date, better_ea_team_win, better_fifa_team_win, tournament in results:
+    for date, better_ea_team_win, better_fifa_team_win,home_team_rank, away_team_rank, tournament in results:
         dict = {}
         dict["date"] = date
         dict["home_team"] = home_team
