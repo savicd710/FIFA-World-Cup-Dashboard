@@ -6,8 +6,8 @@ We set out to create a dashboard that would display a number of graphs and stati
 
 ### Data Sources
 
-Fifa World Cup 1993-2022
-Kaggle
+Fifa World Cup 1993-2022  
+Kaggle  
 https://www.kaggle.com/datasets/brenda89/fifa-world-cup-2022?resource=download 
 
 Fifa World Cup Squads 1994-2018  
@@ -19,3 +19,13 @@ https://en.wikipedia.org/wiki/2006_FIFA_World_Cup_squads
 https://en.wikipedia.org/wiki/2002_FIFA_World_Cup_squads 
 https://en.wikipedia.org/wiki/1998_FIFA_World_Cup_squads 
 https://en.wikipedia.org/wiki/1994_FIFA_World_Cup_squads 
+
+### Code Explanation
+
+Data from Wikipedia was scraped using python and BeautifulSoup.
+All data sets were tydied and formatted using Python, primarily with the use of Pandas package.
+
+Data tables were added to a sqlite database using Python and SQLAlchemy. Three data tables were made including country data, EA/Fifa rank data and squad data. Each table contained a varying number of rows, as well as a primary key. Each table was distinctly different, so no foreign keys were necessary.
+
+
+
