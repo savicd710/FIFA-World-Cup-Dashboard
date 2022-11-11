@@ -118,18 +118,17 @@ def rating_view():
     session.close()
 
     match_data = []
-    for date, better_ea_team_win, better_fifa_team_win,home_team_rank, away_team_rank, tournament in results:
-        dict = {}
-        dict["date"] = date
-        dict["home_team"] = home_team
-        dict["away_team"] = away_team
-        dict["home_team_rank"] = home_team_rank
-        dict["away_team_rank"] = away_team_rank
-        dict["tournament"] = tournament
-        dict["winner"] = winner
-        match_data.append(dict)
+    for date, home_team_fifa_rank, away_team_fifa_rank, tournament, winner in results:
+         dict = {}
+         dict["date"] = date
+         dict["home_team_fifa_rank"] = home_team_fifa_rank
+         dict["away_team_fifa_rank"] = away_team_fifa_rank
+         dict["tournament"] = tournament
+         dict["winner"] = winner
+         match_data.append(dict)
+        
 
-    return render_template('rating_view.html', data=match_data, date=date, home_team=home_team, away_team=away_team, home_team_rank=home_team_rank, away_team_rank=away_team_rank, tournament=tournament, winner=winner)
+    return render_template('rating_view.html', data=match_data, date=date,   home_team_fifa_rank=home_team_fifa_rank, away_team_rank=away_team_fifa_rank, tournament=tournament, winner=winner)
 
 
 @app.route("/map_view")
