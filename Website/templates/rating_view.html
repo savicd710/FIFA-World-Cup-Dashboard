@@ -62,8 +62,8 @@
         {
 
             type: 'bar',
-             x: {{tournament|tojson}} ,
-             y: {{home_team_rank|tojson}} ,
+             x: Json.stringify(tournament) ,
+             y: Json.stringify(home_team_rank),
              base: [1,10,100],
              marker: {
                 color:'green'
@@ -72,13 +72,13 @@
          },
         {
             type: 'bar',
-            x: {{tournament|tojson}},
-            y: {{away_team_rank|tojson}},
+            x: Json.stringify(tournament),
+            y: Json.stringify(away_team_rank),
             base: 0,
             marker: {
                 color: 'red'
-            }
-            name: 'Away',
+            },
+            name: 'Away'
         
         }]
 
